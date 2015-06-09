@@ -1,3 +1,5 @@
 | pdflatex cpe.tex
 
-| python ./poisson.py
+| python poisson.py
+
+| python impedance.py
