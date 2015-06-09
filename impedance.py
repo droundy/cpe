@@ -1,4 +1,4 @@
-from __future__ import division 
+from __future__ import division
 from pylab import *
 import matplotlib.pyplot as plt
 
