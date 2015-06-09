@@ -15,12 +15,12 @@ e_0 = 8.85e-12 #F/m Vacuum Permiativity
 n_0 = 1 #molar number or ions 
 nm = 1e-5 #meters 
 
-xmin = 1e-10
-x = arange(xmin,1e-9,1e-12) #range of distances 
+xmin = 1e-12
+x = arange(xmin,1e-9,1e-13) #range of distances 
 
 #Potential energy
 def potential(x): #Joules
-    return q**2/(16*pi*e_w*e_0)*(e_w-e_g)/(e_w+e_g)*(xmin/(x-xmin))**10
+    #return q**2/(16*pi*e_w*e_0)*(e_w-e_g)/(e_w+e_g)*(xmin/(x-xmin))**10
     return q**2/(16*pi*e_w*e_0)*(e_w-e_g)/(e_w+e_g)*1/x
 
 #Concentration
@@ -65,7 +65,6 @@ plt.xlim(xmax=10)
 plt.xlabel(r'x ($nm$)')
 plt.ylabel(r'Resistivity ($\Omega m$)')
 plt.title('')
-plt.show()
 
 
 #Impedance
@@ -78,7 +77,7 @@ for xval in x:
     dx = .1*nm
     Z_real += initial_r(xval,omega)*dx #ohms*m**2
     
-print 'hello'
+print 'We are half-way done!'
 
 def initial_i(x,omega): #ohms*m
     return (omega*e_0*e_w*resistivity(x)**2)/(1+(omega*e_0*e_w*resistivity(x))**2)

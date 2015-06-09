@@ -1,0 +1,59 @@
+\documentclass[twocolumn]{article}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\title{Electrolytic Constant Phase Elements}
+\author{David Roundy}
+
+\begin{document}
+
+\maketitle
+
+\section{Concentration}
+
+The concentration as a function of DC voltage using Poisson-Boltzmann
+equation.  I will use Gaussian units, which means that Poisson's
+equation is given by:
+\begin{align}
+  \nabla^2 \psi = \frac{4\pi}{\epsilon} \rho
+\end{align}
+For simplicity we assume that we have single-charged cations and
+anions.
+\begin{align}
+  \rho = e (n_{+} - n_{-})
+\end{align}
+We can find the number densities of ions from
+\begin{align}
+  n_{\pm} = n_0 \exp(\mp\beta e \psi)
+\end{align}
+keeping in mind that $\psi\rightarrow 0$ far from the surface.
+
+Actually, we can solve for $\psi(x)$ analytically, and from that
+obtain the densities.
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{poisson}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{sigma-vs-V}
+\end{figure}
+
+\section{Conductivity}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{resistivity}
+  \caption{Resistivity as a function of distance from the capacitor
+    surface.}
+\end{figure}
+
+The conductivity is a function of ion concentration.  At sufficiently
+low densities, the conductivity due to each species is proportional to
+its density.  At higher densities, we should use Kohlrausch's law,
+which accounts for repulsive interactions between ions of the same
+charge.  Sadly, Kohlrausch's law fails at very high concentrations,
+which is a problem because the concentration tends to get very high
+near the charged surface.
+
+\end{document}
