@@ -16,3 +16,34 @@ def concentration_no_bias(n_0, kT, potential, x): #molar
        x is the position (which may be a numpy array).
     """
     return n_0*np.exp(-potential(x)/kT)
+
+def impedance_real(xs, resistivity, omega, epsilon): # ohm*m**2
+    """
+       Find the real part of the impedance.  This function assumes
+       that the x values stored in xs are equally spaced.
+
+       epsilon is the dielectric constant of the material.
+
+       resistivity is an array with the same size as xs.
+    """
+    dx = xs[1] - xs[0]
+    Z_real = 0
+    for i in xrange(len(xs)):
+        Z_real += dx*resistivity[i]/(1+(omega*epsilon*resistivity[i])**2)
+    return Z_real
+
+
+def impedance_imag(xs, resistivity, omega, epsilon): # ohm*m**2
+    """
+       Find the imaginary part of the impedance.  This function
+       assumes that the x values stored in xs are equally spaced.
+
+       epsilon is the dielectric constant of the material.
+
+       resistivity is an array with the same size as xs.
+    """
+    dx = xs[1] - xs[0]
+    Z_real = 0
+    for i in xrange(len(xs)):
+        Z_real += dx*omega*epsilon*resistivity[i]**2/(1+(omega*epsilon*resistivity[i])**2)
+    return Z_real

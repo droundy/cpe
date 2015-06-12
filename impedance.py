@@ -74,31 +74,21 @@ plt.savefig('resistivity-vs-distance.pdf')
 
 #Impedance
 omega = np.arange(1, 1e3, .5)/2/np.pi
-def initial_r(x,omega): #ohms*m
-    return resistivity(x)/(1+(omega*e_0*e_w*resistivity(x))**2)
 
-Z_real = 0
-for xval in x:
-    dx = .1*nm
-    Z_real += initial_r(xval,omega)*dx #ohms*m**2
+Z_real = compute.impedance_real(x, resistivity(x), omega, e_0*e_w)
 
 print 'We are half-way done!'
 
-def initial_i(x,omega): #ohms*m
-    return (omega*e_0*e_w*resistivity(x)**2)/(1+(omega*e_0*e_w*resistivity(x))**2)
+Z_imag = compute.impedance_imag(x, resistivity(x), omega, e_0*e_w)
 
-Z_imag = xmin/(omega*e_0*e_w)
-for xval in x:
-    dx = .1*nm
-    Z_imag += initial_i(xval,omega)*dx #ohms*m**2
 
 alpha = 0.9 #fits finding slope of Impedance curves
 
 plt.figure('Impedance')
-plt.loglog(omega*2*np.pi,Z_real, label='Real Component')
-plt.loglog(omega*2*np.pi,Z_imag, label='Imaginary Component')
-plt.loglog(omega*2*np.pi,omega**(-alpha)*6e3, ':', label='Real Fit')
-plt.loglog(omega*2*np.pi,omega**(-alpha)*8e4, ':', label='Imaginary Fit')
+plt.loglog(omega*2*np.pi,Z_real, 'r-', label='Real Component')
+plt.loglog(omega*2*np.pi,Z_imag, 'b-', label='Imaginary Component')
+plt.loglog(omega*2*np.pi,omega**(-alpha)*6e-4, 'r:', label='Real Fit')
+plt.loglog(omega*2*np.pi,omega**(-alpha)*8e-3, 'b:', label='Imaginary Fit')
 plt.xlabel( r'Frequency ($Hz$)')
 plt.ylabel(r'Impedance ($\Omega m^2$)')
 plt.legend()
