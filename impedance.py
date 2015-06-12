@@ -107,7 +107,7 @@ experimental_data = [(9e7, 3e7, .8, .8, 23400, '-'),
                      (3e8, 1e8, .75, .75, 5000, '--'),
                      ]
 
-for re1, im1, alphare, alphaim, area, symbol in experimental_data:
+for im1, re1, alphare, alphaim, area, symbol in experimental_data:
     plt.loglog(f, area*re1/f**alphare, 'r'+symbol, label=r'$A = %g \mu m^2$' % area)
     plt.loglog(f, area*im1/f**alphaim, 'b'+symbol)
 
