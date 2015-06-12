@@ -95,4 +95,31 @@ plt.legend()
 
 plt.savefig('impedance-vs-frequency.pdf')
 
+plt.figure('Experimental impedance')
+
+f = np.arange(1, 1000, 0.1)
+
+experimental_data = [(9e7, 3e7, .8, .8, 23400, '-'),
+                     (2e8, 9e7, .8, .8, 19200, ':'),
+                     (2e8, 7e7, .7, .7, 15800, '--'),
+                     (2.3e8, 1e8, .75, .75, 7500, ':'),
+                     (2e8, 1.5e8, .75, .75, 6100, ':'),
+                     (3e8, 1e8, .75, .75, 5000, '--'),
+                     ]
+
+for re1, im1, alphare, alphaim, area, symbol in experimental_data:
+    plt.loglog(f, area*re1/f**alphare, 'r'+symbol, label=r'$A = %g \mu m^2$' % area)
+    plt.loglog(f, area*im1/f**alphaim, 'b'+symbol)
+
+plt.loglog(omega*2*np.pi,Z_real*1e12, 'r-', label='Real Component')
+plt.loglog(omega*2*np.pi,Z_imag*1e12, 'b-', label='Imaginary Component')
+
+plt.xlabel( r'Frequency ($Hz$)')
+plt.ylabel(r'Impedance ($\Omega \mu m^2$)')
+plt.legend().get_frame().set_alpha(0.25)
+
+plt.savefig('experimental-impedance-vs-frequency.pdf')
+
+
+
 plt.show()
