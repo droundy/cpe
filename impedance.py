@@ -85,12 +85,12 @@ Z_imag = compute.impedance_imag(x, resistivity(x), omega, e_0*e_w)
 alpha = 0.9 #fits finding slope of Impedance curves
 
 plt.figure('Impedance')
-plt.loglog(omega*2*np.pi,Z_real, 'r-', label='Real Component')
-plt.loglog(omega*2*np.pi,Z_imag, 'b-', label='Imaginary Component')
-plt.loglog(omega*2*np.pi,omega**(-alpha)*6e-4, 'r:', label='Real Fit')
-plt.loglog(omega*2*np.pi,omega**(-alpha)*8e-3, 'b:', label='Imaginary Fit')
+plt.loglog(omega*2*np.pi,Z_real*1e12, 'r-', label='Real Component')
+plt.loglog(omega*2*np.pi,Z_imag*1e12, 'b-', label='Imaginary Component')
+plt.loglog(omega*2*np.pi,omega**(-alpha)*6e-4*1e12, 'r:', label='Real Fit')
+plt.loglog(omega*2*np.pi,omega**(-alpha)*8e-3*1e12, 'b:', label='Imaginary Fit')
 plt.xlabel( r'Frequency ($Hz$)')
-plt.ylabel(r'Impedance ($\Omega m^2$)')
+plt.ylabel(r'Impedance ($\Omega \mu m^2$)')
 plt.legend()
 
 plt.savefig('impedance-vs-frequency.pdf')
