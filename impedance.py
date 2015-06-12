@@ -6,6 +6,8 @@ if 'show' not in sys.argv:
 import numpy as np
 import matplotlib.pyplot as plt
 
+import compute
+
 #Concentration of ions as function of distance
 #
 #Constants
@@ -27,11 +29,6 @@ def potential(x): #Joules
     #return q**2/(16*pi*e_w*e_0)*(e_w-e_g)/(e_w+e_g)*(xmin/(x-xmin))**10
     return q**2/(16*np.pi*e_w*e_0)*(e_w-e_g)/(e_w+e_g)*1/x
 
-#Concentration
-def concentration(x): #molar
-    return n_0*np.exp(-beta*potential(x))
-
-
 plt.figure('Potential')
 plt.loglog(x,potential(x),'-')
 plt.xlabel(r'Distance from graphene($nm$)')
@@ -41,7 +38,7 @@ plt.title('Potential Energy')
 plt.savefig('potential-energy-vs-distance.pdf')
 
 plt.figure('Concentration')
-plt.semilogx(x,concentration(x), '-')
+plt.semilogx(x,compute.concentration_no_bias(n_0, k*T, potential, x), '-')
 plt.xlabel(r'Distance from graphene($nm$)')
 plt.ylabel(r'Concentration of ions ($\frac{mol}{m^3}$)')
 plt.title('Concentration as function of distance form graphene')
@@ -57,7 +54,7 @@ def conductivity(x): #1e-3/ohm/m
     l_an = 5.011 #mS m^2/mol, limiting molar conductivity of each ion.
     l_cat = 7.634 #mS m^2/mol
     lim_mol_cond = v_an*l_an + v_cat*l_cat #total limiting molar conductivity
-    return lim_mol_cond*concentration(x)
+    return lim_mol_cond*compute.concentration_no_bias(n_0, k*T, potential, x)
 
 
 
