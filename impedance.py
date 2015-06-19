@@ -92,9 +92,6 @@ plt.loglog(omega*2*np.pi,omega**(-alpha)*8e-3*1e12, 'b:', label='Imaginary Fit')
 
 experiment = np.loadtxt('RawDataGraphene.txt')
 expfreq = experiment[:,0]
-print expfreq
-print experiment[:,1]
-print 1/experiment[:,1]
 
 Vsd = 25e-3 # applied voltage = 25 mV
 
