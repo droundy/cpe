@@ -118,7 +118,7 @@ plt.loglog(expfreq, Vsd/experiment[:,12]*5000, 'kx')
 
 plt.xlabel( r'Frequency ($Hz$)')
 plt.ylabel(r'Impedance ($\Omega \mu m^2$)')
-plt.legend(loc='best')
+plt.legend(loc='best').get_frame().set_alpha(0.25)
 
 plt.savefig('impedance-vs-frequency.pdf')
 
