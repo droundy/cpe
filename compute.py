@@ -29,7 +29,9 @@ def impedance_real(xs, resistivity, omega, epsilon): # ohm*m**2
     dx = xs[1] - xs[0]
     Z_real = 0
     for i in xrange(len(xs)):
-        Z_real += dx*resistivity[i]/(1+(omega*epsilon*resistivity[i])**2)
+        dZ = dx*resistivity[i]/(1+(omega*epsilon*resistivity[i])**2)
+        if not np.isnan(dZ).any():
+            Z_real += dZ
     return Z_real
 
 
@@ -43,7 +45,11 @@ def impedance_imag(xs, resistivity, omega, epsilon): # ohm*m**2
        resistivity is an array with the same size as xs.
     """
     dx = xs[1] - xs[0]
-    Z_real = 0
+    Z_imag = 0
     for i in xrange(len(xs)):
-        Z_real += dx*omega*epsilon*resistivity[i]**2/(1+(omega*epsilon*resistivity[i])**2)
-    return Z_real
+        dZ = dx*omega*epsilon*resistivity[i]**2/(1+(omega*epsilon*resistivity[i])**2)
+        if not np.isnan(dZ).any():
+            Z_imag += dZ
+        else:
+            Z_imag += dx/(omega*epsilon)
+    return Z_imag

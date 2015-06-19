@@ -21,8 +21,8 @@ e_0 = 8.85e-12 #F/m Vacuum Permiativity
 n_0 = 1 #molar number or ions
 nm = 1e-5 #meters
 
-xmin = 1e-12
-x = np.arange(xmin,1e-9,1e-13) #range of distances
+dx = 1e-13
+x = np.arange(dx/2,1e-8,dx) #range of distances
 
 #Potential energy
 def potential(x): #Joules
@@ -71,7 +71,6 @@ plt.title('')
 
 plt.savefig('resistivity-vs-distance.pdf')
 
-
 #Impedance
 omega = np.arange(1, 1e3, .5)/2/np.pi
 
@@ -118,32 +117,6 @@ plt.ylabel(r'Impedance ($\Omega \mu m^2$)')
 plt.legend(loc='best').get_frame().set_alpha(0.25)
 
 plt.savefig('impedance-vs-frequency.pdf')
-
-plt.figure('Experimental impedance')
-
-f = np.arange(1, 1000, 0.1)
-
-experimental_data = [(9e7, 3e7, .8, .8, 23400, '-'),
-                     (2e8, 9e7, .8, .8, 19200, ':'),
-                     (2e8, 7e7, .7, .7, 15800, '--'),
-                     (2.3e8, 1e8, .75, .75, 7500, ':'),
-                     (2e8, 1.5e8, .75, .75, 6100, ':'),
-                     (3e8, 1e8, .75, .75, 5000, '--'),
-                     ]
-
-for im1, re1, alphare, alphaim, area, symbol in experimental_data:
-    plt.loglog(f, area*re1/f**alphare, 'r'+symbol, label=r'$A = %g \mu m^2$' % area)
-    plt.loglog(f, area*im1/f**alphaim, 'b'+symbol)
-
-plt.loglog(omega*2*np.pi,Z_real*1e12, 'r-', label='Real Component')
-plt.loglog(omega*2*np.pi,Z_imag*1e12, 'b-', label='Imaginary Component')
-
-plt.xlabel( r'Frequency ($Hz$)')
-plt.ylabel(r'Impedance ($\Omega \mu m^2$)')
-plt.legend().get_frame().set_alpha(0.25)
-
-plt.savefig('experimental-impedance-vs-frequency.pdf')
-
 
 
 plt.show()
