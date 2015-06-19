@@ -93,24 +93,28 @@ plt.loglog(omega*2*np.pi,omega**(-alpha)*8e-3*1e12, 'b:', label='Imaginary Fit')
 experiment = np.loadtxt('RawDataGraphene.txt')
 expfreq = experiment[:,0]
 print expfreq
+print experiment[:,1]
+print 1/experiment[:,1]
 
-plt.loglog(expfreq, 1/experiment[:,1]*23400, 'ro', label='A=23,400 $\mu m^2$')
-plt.loglog(expfreq, 1/experiment[:,2]*23400, 'rx')
+Vsd = 25e-3 # applied voltage = 25 mV
 
-plt.loglog(expfreq, 1/experiment[:,3]*19200, 'bo', label='A=19,200 $\mu m^2$')
-plt.loglog(expfreq, 1/experiment[:,4]*19200, 'bx')
+plt.loglog(expfreq, Vsd/experiment[:,1]*23400, 'ro', label='A=23,400 $\mu m^2$')
+plt.loglog(expfreq, Vsd/experiment[:,2]*23400, 'rx')
 
-plt.loglog(expfreq, 1/experiment[:,5]*15800, 'go', label='A=15,800 $\mu m^2$')
-plt.loglog(expfreq, 1/experiment[:,6]*15800, 'gx')
+plt.loglog(expfreq, Vsd/experiment[:,3]*19200, 'bo', label='A=19,200 $\mu m^2$')
+plt.loglog(expfreq, Vsd/experiment[:,4]*19200, 'bx')
 
-plt.loglog(expfreq, 1/experiment[:,7]*7500, 'co', label='A=7,500 $\mu m^2$')
-plt.loglog(expfreq, 1/experiment[:,8]*7500, 'cx')
+plt.loglog(expfreq, Vsd/experiment[:,5]*15800, 'go', label='A=15,800 $\mu m^2$')
+plt.loglog(expfreq, Vsd/experiment[:,6]*15800, 'gx')
 
-plt.loglog(expfreq, 1/experiment[:,9]*6100, 'yo', label='A=6,100 $\mu m^2$')
-plt.loglog(expfreq, 1/experiment[:,10]*6100, 'yx')
+plt.loglog(expfreq, Vsd/experiment[:,7]*7500, 'co', label='A=7,500 $\mu m^2$')
+plt.loglog(expfreq, Vsd/experiment[:,8]*7500, 'cx')
 
-plt.loglog(expfreq, 1/experiment[:,11]*5000, 'ko', label='A=5,000 $\mu m^2$')
-plt.loglog(expfreq, 1/experiment[:,12]*5000, 'kx')
+plt.loglog(expfreq, Vsd/experiment[:,9]*6100, 'yo', label='A=6,100 $\mu m^2$')
+plt.loglog(expfreq, Vsd/experiment[:,10]*6100, 'yx')
+
+plt.loglog(expfreq, Vsd/experiment[:,11]*5000, 'ko', label='A=5,000 $\mu m^2$')
+plt.loglog(expfreq, Vsd/experiment[:,12]*5000, 'kx')
 
 plt.xlabel( r'Frequency ($Hz$)')
 plt.ylabel(r'Impedance ($\Omega \mu m^2$)')
