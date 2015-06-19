@@ -30,7 +30,11 @@ def impedance_real(xs, resistivity, omega, epsilon): # ohm*m**2
     Z_real = 0
     for i in xrange(len(xs)):
         dZ = dx*resistivity[i]/(1+(omega*epsilon*resistivity[i])**2)
-        if not np.isnan(dZ).any():
+        if np.isnan(dZ).any() or np.isinf(dZ).any():
+            # The resistivity is presumably infinite... which would
+            # give us a correct contribution of zero.
+            pass
+        else:
             Z_real += dZ
     return Z_real
 
@@ -48,8 +52,8 @@ def impedance_imag(xs, resistivity, omega, epsilon): # ohm*m**2
     Z_imag = 0
     for i in xrange(len(xs)):
         dZ = dx*omega*epsilon*resistivity[i]**2/(1+(omega*epsilon*resistivity[i])**2)
-        if not np.isnan(dZ).any():
-            Z_imag += dZ
-        else:
+        if np.isnan(dZ).any() or np.isinf(dZ).any():
             Z_imag += dx/(omega*epsilon)
+        else:
+            Z_imag += dZ
     return Z_imag

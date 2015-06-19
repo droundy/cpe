@@ -22,7 +22,7 @@ n_0 = 1 #molar number or ions
 nm = 1e-5 #meters
 
 dx = 1e-13
-x = np.arange(dx/2,1e-8,dx) #range of distances
+x = np.arange(dx/2,1e-7,dx) #range of distances
 
 #Potential energy
 def potential(x): #Joules
@@ -64,7 +64,9 @@ def resistivity(x): #1e3*ohm*m
 
 
 plt.figure('Resistivity')
-plt.loglog(x/nm, resistivity(x), '-')
+rho = resistivity(x)
+rhomax = 1e100
+plt.loglog(x[rho < rhomax]/nm, rho[rho < rhomax], '-')
 plt.xlabel(r'x ($nm$)')
 plt.ylabel(r'Resistivity ($\Omega m$)')
 plt.title('')
