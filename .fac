@@ -1,4 +1,4 @@
-| pdflatex cpe.tex
+| pdflatex cpe.tex && pdflatex cpe.tex
 
 | python poisson.py
 
