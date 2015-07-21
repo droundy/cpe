@@ -1,0 +1,21 @@
+MacKenzie
+=========
+
+1. Find Q from V (integrating in?)
+
+   Self-consistent anion and cation densities, with electrostatic
+   potential and chemical potential (i.e. the repulsion we're talking
+   about).
+
+2. ???
+
+David
+=====
+
+1. Either experiment with tweaking V to get a better Z(omega), or go
+   for the full inverse computation, computing V given Z(omega).
+
+2. ???
+
+
+
