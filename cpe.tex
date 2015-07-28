@@ -2,6 +2,10 @@
 
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{afterpage}
+\usepackage{color}
+
+\newcommand\fixme[1]{{\bf\color{red}[FIX ME! #1 !EM XIF]}}
 
 \title{Electrolytic Constant Phase Elements}
 \author{David Roundy}
@@ -41,6 +45,54 @@ some text.
     based on theory (solid lines, see also previous figures).  Also
     plotted are the experimental values for several graphene sheets.}
 \end{figure}
+
+\afterpage{\clearpage}
+
+\clearpage
+
+\section{Finding potential energy from impedance}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{optimal-Z-fit}
+  \caption{The frequency-dependent impedance, experiment
+    vs. theoretical fit.}\label{fig:optimal-Z-fit}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{optimal-resistivity}
+  \caption{The resistivity curve that best fits the impedance of one
+    particular experiment.}\label{fig:optimal-resistivity}
+\end{figure}
+
+I have written some code (see \texttt{transposed\_resistivity.py}) that
+finds the resistivity curve that best fits the experimental
+impedence.  See Fig.~\ref{fig:optimal-Z-fit} for a plot of the fit.
+One thing I discovered was that I seem to have the real and imaginary
+parts swapped in either experiment or theory.  Or at least, I'm unable
+to reproduce experiment without swapping the two.  This should be
+looked into.
+
+Figure~\ref{fig:optimal-resistivity} shows the optimal resistivity
+curve.  The fit works by adjusting the $\Delta x$ values and thus
+$x(\rho)$, rather than $\rho(x)$.  This turns the function from a
+nonlinear integration into a linear summation of the varying
+quantities, which seems simpler.  As you can see in
+Fig.~\ref{fig:optimal-resistivity}, the lengths scale seems way off,
+and I don't understand why this is.
+
+\fixme{
+
+  I need still to do the following:
+  \begin{enumerate}
+  \item Solve for concentration based on resistivity.
+  \item Solve for potential energy based on concentrations.
+  \end{enumerate}
+  Neither of these steps should be hard, but I see no reason to do
+  them until after fixing the bugs I have already found.
+
+}
+
+
 
 \clearpage
 

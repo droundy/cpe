@@ -1,6 +1,7 @@
 from __future__ import division
 
 import numpy as np
+import collections
 
 def concentration_no_bias(n_0, kT, potential, x): #molar
     """
@@ -17,18 +18,26 @@ def concentration_no_bias(n_0, kT, potential, x): #molar
     """
     return n_0*np.exp(-potential(x)/kT)
 
-def impedance_real(xs, resistivity, omega, epsilon): # ohm*m**2
-    """
-       Find the real part of the impedance.  This function assumes
-       that the x values stored in xs are equally spaced.
+def impedance_real(dxs, resistivity, omega, epsilon): # ohm*m**2
+    """Find the real part of the impedance.  The dxs argument is either a
+       scalar value for dx, or an array holding the dx value for each
+       resistivity.
 
        epsilon is the dielectric constant of the material.
 
        resistivity is an array with the same size as xs.
+
     """
-    dx = xs[1] - xs[0]
+    try:
+        dxs[0]
+    except:
+        dx = dxs
     Z_real = 0
-    for i in xrange(len(xs)):
+    for i in range(len(resistivity)):
+        try:
+            dx = dxs[i]
+        except:
+            pass
         dZ = dx*resistivity[i]/(1+(omega*epsilon*resistivity[i])**2)
         if np.isnan(dZ).any() or np.isinf(dZ).any():
             # The resistivity is presumably infinite... which would
@@ -39,18 +48,25 @@ def impedance_real(xs, resistivity, omega, epsilon): # ohm*m**2
     return Z_real
 
 
-def impedance_imag(xs, resistivity, omega, epsilon): # ohm*m**2
-    """
-       Find the imaginary part of the impedance.  This function
-       assumes that the x values stored in xs are equally spaced.
+def impedance_imag(dxs, resistivity, omega, epsilon): # ohm*m**2
+    """Find the imaginary part of the impedance.  The dxs argument is either a
+       scalar value for dx, or an array holding the dx value for each
+       resistivity.
 
        epsilon is the dielectric constant of the material.
 
        resistivity is an array with the same size as xs.
     """
-    dx = xs[1] - xs[0]
+    try:
+        dxs[0]
+    except:
+        dx = dxs
     Z_imag = 0
-    for i in xrange(len(xs)):
+    for i in range(len(resistivity)):
+        try:
+            dx = dxs[i]
+        except:
+            pass
         dZ = dx*omega*epsilon*resistivity[i]**2/(1+(omega*epsilon*resistivity[i])**2)
         if np.isnan(dZ).any() or np.isinf(dZ).any():
             Z_imag += dx/(omega*epsilon)

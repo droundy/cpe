@@ -19,15 +19,16 @@ e_w = 80 #Permiativity in water
 e_g = 4 #Permiativity in glass
 e_0 = 8.85e-12 #F/m Vacuum Permiativity
 n_0 = 1 #molar number or ions
-nm = 1e-5 #meters
+nm = 1e-9 #meters
 
-dx = 1e-13
-x = np.arange(dx/2,1e-7,dx) #range of distances
+dx = 0.001*nm
+xmax = 10*nm
+x = np.arange(dx/2,xmax,dx) #range of distances
 
 #Potential energy
 def potential(x): #Joules
     #return q**2/(16*pi*e_w*e_0)*(e_w-e_g)/(e_w+e_g)*(xmin/(x-xmin))**10
-    return q**2/(16*np.pi*e_w*e_0)*(e_w-e_g)/(e_w+e_g)*1/x
+    return 100*q**2/(16*np.pi*e_w*e_0)*(e_w-e_g)/(e_w+e_g)*1/x
 
 plt.figure('Potential')
 plt.loglog(x,potential(x),'-')
@@ -65,6 +66,7 @@ def resistivity(x): #1e3*ohm*m
 
 plt.figure('Resistivity')
 rho = resistivity(x)
+#np.savetxt('resistivity.csv', rho)
 rhomax = 1e100
 plt.loglog(x[rho < rhomax]/nm, rho[rho < rhomax], '-')
 plt.xlabel(r'x ($nm$)')
@@ -76,11 +78,11 @@ plt.savefig('resistivity-vs-distance.pdf')
 #Impedance
 omega = np.arange(1, 1e3, .5)/2/np.pi
 
-Z_real = compute.impedance_real(x, resistivity(x), omega, e_0*e_w)
+Z_real = compute.impedance_real(x[1]-x[0], resistivity(x), omega, e_0*e_w)
 
 print 'We are half-way done!'
 
-Z_imag = compute.impedance_imag(x, resistivity(x), omega, e_0*e_w)
+Z_imag = compute.impedance_imag(x[1]-x[0], resistivity(x), omega, e_0*e_w)
 
 
 alpha = 0.9 #fits finding slope of Impedance curves

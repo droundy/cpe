@@ -1,5 +1,10 @@
 | pdflatex cpe.tex && pdflatex cpe.tex
 
 | python poisson.py
+c .pyc
 
 | python impedance.py
+c .pyc
+
+| python3 transposed_resistivity.py
+c .pyc
