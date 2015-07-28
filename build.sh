@@ -4,7 +4,7 @@ set -ev
 
 (python impedance.py)
 
-(python3 transposed_resistivity.py)
+(python transposed_resistivity.py)
 
 (python poisson.py)
 

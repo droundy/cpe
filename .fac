@@ -6,5 +6,5 @@ c .pyc
 | python impedance.py
 c .pyc
 
-| python3 transposed_resistivity.py
+| python transposed_resistivity.py
 c .pyc

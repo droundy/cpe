@@ -28,7 +28,7 @@ x = np.arange(dx/2,xmax,dx) #range of distances
 #Potential energy
 def potential(x): #Joules
     #return q**2/(16*pi*e_w*e_0)*(e_w-e_g)/(e_w+e_g)*(xmin/(x-xmin))**10
-    return 100*q**2/(16*np.pi*e_w*e_0)*(e_w-e_g)/(e_w+e_g)*1/x
+    return q**2/(16*np.pi*e_w*e_0)*(e_w-e_g)/(e_w+e_g)*1/x
 
 plt.figure('Potential')
 plt.loglog(x,potential(x),'-')
@@ -99,7 +99,7 @@ expfreq = experiment[:,0]
 Vsd = 25e-3 # applied voltage = 25 mV
 
 plt.loglog(expfreq, Vsd/experiment[:,1]*23400, 'ro', label='A=23,400 $\mu m^2$')
-plt.loglog(expfreq, Vsd/experiment[:,2]*23400, 'rx')
+plt.loglog(expfreq, Vsd/experiment[:,2]*23400, 'rx', label='(real part)')
 
 plt.loglog(expfreq, Vsd/experiment[:,3]*19200, 'bo', label='A=19,200 $\mu m^2$')
 plt.loglog(expfreq, Vsd/experiment[:,4]*19200, 'bx')

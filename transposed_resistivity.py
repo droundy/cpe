@@ -21,8 +21,8 @@ dxs = np.zeros_like(resistivity) + 1.0*nm
 experiment = np.loadtxt('RawDataGraphene.txt')
 omega = experiment[:,0]/2/np.pi
 Vsd = 25e-3 # experimental applied voltage = 25 mV
-experimental_impedance_real = Vsd/experiment[:,5]*15800 # scale by area
-experimental_impedance_imag = Vsd/experiment[:,6]*15800 # scale by area
+experimental_impedance_real = Vsd/experiment[:,6]*15800 # scale by area
+experimental_impedance_imag = Vsd/experiment[:,5]*15800 # scale by area
 experimental_impedance = np.concatenate((experimental_impedance_real,
                                          experimental_impedance_imag))
 
@@ -33,9 +33,8 @@ for i in range(len(resistivity)):
         o = omega[j]
         Zr = compute.impedance_real(1.0, [resistivity[i]], o, e_0*e_w)
         Zi = compute.impedance_imag(1.0, [resistivity[i]], o, e_0*e_w)
-        # FIXME THE FOLLOWING ARE SWAPPED.  DO I HAVE EXPERIMENT BACKWARDS?
-        mymatrix[j,i] = Zi/experimental_impedance_real[j]
-        mymatrix[j + len(omega),i] = Zr/experimental_impedance_imag[j]
+        mymatrix[j,i] = Zi/experimental_impedance_imag[j]
+        mymatrix[j + len(omega),i] = Zr/experimental_impedance_real[j]
 
 def chisq(dxs):
     Zs = np.dot(mymatrix, dxs)
@@ -69,7 +68,7 @@ plt.loglog(x, resistivity)
 
 # plt.ylim(-1, 1e15)
 # plt.xlim(1e-3, 1e4)
-plt.xlabel(r'$x$ (m) ?!')
+plt.xlabel(r'$x$ (m) yikes?!?!')
 plt.ylabel(r'$\rho$ ($\Omega m$)')
 # plt.legend(loc='best')
 
