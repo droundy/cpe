@@ -50,6 +50,31 @@ some text.
 
 \clearpage
 
+\section{Finding the capacitance from the potential energy}
+
+How does concentration come from potential energy?
+
+\begin{align}
+  n_i(x) = n_{i0} \exp\left(-\beta \left(V_{\text{graphene}}(x)
+                                       + q_i \Phi(x)\right)\right)
+\end{align}
+where $\Phi$ is the electrostatic potential.  Then we can compute the
+charge density $\rho(x)$ from
+\begin{align}
+  \rho(x) = \sum_i q_i n_i(x)
+\end{align}
+and finally, the Poisson equation...
+\begin{align}
+  \nabla^2 \Phi(x) = -\frac{\rho(x)}{\epsilon_0\epsilon_w}
+\end{align}
+\begin{align}
+  \nabla^2 \Phi(x) = -\frac{\sum_i q_i n_i(x)}{\epsilon_0\epsilon_w}
+\end{align}
+Gauss' Law!
+
+
+\clearpage
+
 \section{Finding potential energy from impedance}
 
 \begin{figure}
