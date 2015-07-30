@@ -13,10 +13,10 @@ import compute
 
 e_w = 80 #Permiativity in water
 e_0 = 8.85e-12 #F/m Vacuum Permiativity
-n_0 = 1.0 #molarity of ions
+n_0 = 0.01 #molarity of ions (10 mM phoshpate buffer from Crosser et al.)
 
 nm = 1e-9
-resistivity = 10.0**np.arange(200, 0.0, -0.5)
+resistivity = 10.0**np.arange(200, 1.0, -0.5)
 rootdxs = np.zeros_like(resistivity)
 
 experiment = np.loadtxt('RawDataGraphene.txt')
@@ -150,7 +150,7 @@ eV = 1.6e-19 # J
 V = compute.potential_from_concentration(kT, n_0, molar_concentration)
 plt.plot(x, V/eV, '-')
 
-# plt.ylim(-1, 1e15)
+plt.ylim(0, 12)
 plt.xlim(1e-11, 1e-8)
 plt.xlabel(r'$x$ (m)')
 plt.ylabel(r'$V$ (eV)')
@@ -160,6 +160,8 @@ ax2 = plt.axes([.35, .25, .5, .6])
 ax2.semilogx(x, V/eV, '-')
 plt.xlabel(r'$x$ (m)')
 plt.ylabel(r'$V$ (eV)')
+plt.ylim(0,12)
+plt.xlim(xmin=1e-11)
 
 plt.savefig('optimal-potential.pdf')
 
