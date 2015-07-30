@@ -18,6 +18,20 @@ def concentration_no_bias(n_0, kT, potential, x): #molar
     """
     return n_0*np.exp(-potential(x)/kT)
 
+def potential_from_concentration(kT, n_0, n): #molar
+    """Given the concentration of ions find the potential felt
+       by the ions.
+
+       kT is Boltzmann's constant time the temperature.
+
+       n_0 is the bulk concentration of ions, i.e. the concentration
+       where the potential is zero.
+
+       n is the actual concentration of ions.
+
+    """
+    return -kT*np.log(n/n_0)
+
 def impedance_real(dxs, resistivity, omega, epsilon): # ohm*m**2
     """Find the real part of the impedance.  The dxs argument is either a
        scalar value for dx, or an array holding the dx value for each

@@ -13,6 +13,7 @@ import compute
 
 e_w = 80 #Permiativity in water
 e_0 = 8.85e-12 #F/m Vacuum Permiativity
+n_0 = 1.0 #molarity of ions
 
 nm = 1e-9
 resistivity = 10.0**np.arange(200, 0.0, -0.5)
@@ -134,11 +135,33 @@ plt.loglog(x, molar_concentration)
 
 # plt.ylim(-1, 1e15)
 # plt.xlim(1e-3, 1e4)
-plt.xlabel(r'$x$ (m) yikes?!?!')
+plt.xlabel(r'$x$ (m)')
 plt.ylabel(r'$n$ (mol/L)')
 # plt.legend(loc='best')
 
 plt.savefig('optimal-concentration.pdf')
+
+plt.figure()
+
+k = 1.38e-23 #m^2kg/s^2K Boltzman Constant
+T = 300 #room temp. Kelven
+kT = k*T
+eV = 1.6e-19 # J
+V = compute.potential_from_concentration(kT, n_0, molar_concentration)
+plt.plot(x, V/eV, '-')
+
+# plt.ylim(-1, 1e15)
+plt.xlim(1e-11, 1e-8)
+plt.xlabel(r'$x$ (m)')
+plt.ylabel(r'$V$ (eV)')
+# plt.legend(loc='best')
+
+ax2 = plt.axes([.35, .25, .5, .6])
+ax2.semilogx(x, V/eV, '-')
+plt.xlabel(r'$x$ (m)')
+plt.ylabel(r'$V$ (eV)')
+
+plt.savefig('optimal-potential.pdf')
 
 
 plt.show()

@@ -95,6 +95,13 @@ Gauss' Law!
     resistivity.}\label{fig:optimal-concentration}
 \end{figure}
 
+\begin{figure}
+  \includegraphics[width=\columnwidth]{optimal-potential}
+  \caption{The potential energy curve extracted from the
+    concentration, which is iteslf extracted from the resistivity that
+    we fit to the impedance.}\label{fig:optimal-potential}
+\end{figure}
+
 I have written some code (see \texttt{transposed\_resistivity.py}) that
 finds the resistivity curve that best fits the experimental
 impedence.  See Fig.~\ref{fig:optimal-Z-fit} for a plot of the fit.
@@ -104,26 +111,16 @@ to reproduce experiment without swapping the two.  This should be
 looked into.
 
 Figure~\ref{fig:optimal-resistivity} shows the optimal resistivity
-curve.  The fit works by adjusting the $\Delta x$ values and thus
-$x(\rho)$, rather than $\rho(x)$.  This turns the function from a
-nonlinear integration into a linear summation of the varying
-quantities, which seems simpler.  As you can see in
-Fig.~\ref{fig:optimal-resistivity}, the lengths scale seems way off,
-and I don't understand why this is.
+curve.  The fit works by adjusting the $\Delta x$ values (actually,
+$\sqrt{\Delta x}$) and thus $x(\rho)$, rather than $\rho(x)$.  This
+turns the function from a nonlinear integration into a linear
+summation of the varying quantities, which seems simpler.
 
-\fixme{
-
-  I need still to do the following:
-  \begin{enumerate}
-  \item Solve for concentration based on resistivity.
-  \item Solve for potential energy based on concentrations.
-  \end{enumerate}
-  Neither of these steps should be hard, but I see no reason to do
-  them until after fixing the bugs I have already found.
-
-}
-
-
+As can be seen in Fig.~\ref{fig:optimal-potential}, we end up with an
+almost linear potential energy, which seems rather funky and
+surprising.  This curve also suggests that the hydration energy of the
+ions is almost 12~eV, which seems (purely as a gut feeling) a bit on
+the high side.
 
 \clearpage
 
