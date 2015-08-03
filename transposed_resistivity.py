@@ -13,9 +13,8 @@ import compute
 
 e_w = 80 #Permiativity in water
 e_0 = 8.85e-12 #F/m Vacuum Permiativity
-n_0 = 0.137 #molarity of ions (10 mM phoshpate buffer from Crosser et
-            #al., assuming the PBS described in wikipedia, and
-            #ignoring everything but the NaCl in that solution.)
+n_0 = 0.01 #molarity of ions (10 mM phoshpate buffer from Crosser et
+           #al., with no sodium chloride or potasium.)
 
 nm = 1e-9
 resistivity = 10.0**np.arange(200, 1.0, -0.5)
@@ -124,7 +123,7 @@ plt.ylabel(r'resistivity ($\Omega m$)')
 
 plt.subplot(2,1,2)
 
-v_an = 1 #number anion
+v_an = 0 #number anion ARTIFICIALLY SET TO ZERO TO IGNORE PHOSPHATE
 v_cat = 1 #number cation
 l_an = 5.011 #mS m^2/mol, limiting molar conductivity of each ion.
 l_cat = 7.634 #mS m^2/mol
