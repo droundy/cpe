@@ -93,18 +93,6 @@ np.savetxt('rho.csv', np.transpose(np.array([x, rootdxs, resistivity])))
 
 plt.figure()
 
-plt.loglog(x, resistivity)
-
-# plt.ylim(-1, 1e15)
-# plt.xlim(1e-3, 1e4)
-plt.xlabel(r'$x$ (m)')
-plt.ylabel(r'$\rho$ ($\Omega m$)')
-# plt.legend(loc='best')
-
-plt.savefig('optimal-resistivity.pdf')
-
-plt.figure()
-
 Zi = compute.impedance_imag(rootdxs**2, resistivity, omega, e_0*e_w)/micron**2
 Zr = compute.impedance_real(rootdxs**2, resistivity, omega, e_0*e_w)/micron**2
 
@@ -123,7 +111,18 @@ plt.legend(loc='best')
 
 plt.savefig('optimal-Z-fit.pdf')
 
-plt.figure()
+plt.figure(figsize=(8,9))
+
+plt.subplot(2,1,1)
+
+plt.loglog(x/nm, resistivity)
+
+# plt.ylim(-1, 1e15)
+# plt.xlim(1e-3, 1e4)
+plt.ylabel(r'resistivity ($\Omega m$)')
+# plt.legend(loc='best')
+
+plt.subplot(2,1,2)
 
 v_an = 1 #number anion
 v_cat = 1 #number cation
@@ -133,15 +132,17 @@ lim_mol_cond = v_an*l_an + v_cat*l_cat #total limiting molar conductivity
 
 molar_concentration = 1.0/(lim_mol_cond*resistivity)
 
-plt.loglog(x, molar_concentration)
+plt.loglog(x/nm, molar_concentration)
 
 # plt.ylim(-1, 1e15)
 # plt.xlim(1e-3, 1e4)
-plt.xlabel(r'$x$ (m)')
+plt.xlabel(r'$x$ (nm)')
 plt.ylabel(r'$n$ (mol/L)')
 # plt.legend(loc='best')
 
-plt.savefig('optimal-concentration.pdf')
+plt.tight_layout()
+
+plt.savefig('optimal-resistivity-and-concentration.pdf')
 
 plt.figure()
 
@@ -150,20 +151,20 @@ T = 300 #room temp. Kelven
 kT = k*T
 eV = 1.6e-19 # J
 V = compute.potential_from_concentration(kT, n_0, molar_concentration)
-plt.plot(x, V/eV, '-')
+plt.plot(x/nm, V/eV, '-')
 
 plt.ylim(0, 12)
-plt.xlim(1e-11, 1e-8)
-plt.xlabel(r'$x$ (m)')
+plt.xlim(0, 10)
+plt.xlabel(r'$x$ (nm)')
 plt.ylabel(r'$V$ (eV)')
 # plt.legend(loc='best')
 
 ax2 = plt.axes([.35, .25, .5, .6])
-ax2.semilogx(x, V/eV, '-')
-plt.xlabel(r'$x$ (m)')
+ax2.semilogx(x/nm, V/eV, '-')
+plt.xlabel(r'$x$ (nm)')
 plt.ylabel(r'$V$ (eV)')
 plt.ylim(0,12)
-plt.xlim(xmin=1e-11)
+plt.xlim(xmin=0.01)
 
 plt.savefig('optimal-potential.pdf')
 

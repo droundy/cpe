@@ -84,15 +84,10 @@ Gauss' Law!
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{optimal-resistivity}
-  \caption{The resistivity curve that best fits the impedance of one
-    particular experiment.}\label{fig:optimal-resistivity}
-\end{figure}
-
-\begin{figure}
-  \includegraphics[width=\columnwidth]{optimal-concentration}
-  \caption{The concentration curve extracted from the
-    resistivity.}\label{fig:optimal-concentration}
+  \includegraphics[width=\columnwidth]{optimal-resistivity-and-concentration}
+  \caption{The resistivity and concentration curves that best fits the
+    impedance of one particular
+    experiment.}\label{fig:optimal-resistivity-and-concentration}
 \end{figure}
 
 \begin{figure}
@@ -102,7 +97,7 @@ Gauss' Law!
     we fit to the impedance.}\label{fig:optimal-potential}
 \end{figure}
 
-I have written some code (see \texttt{transposed\_resistivity.py}) that
+I have written some code\footnote{see \texttt{transposed\_resistivity.py}} that
 finds the resistivity curve that best fits the experimental
 impedence.  See Fig.~\ref{fig:optimal-Z-fit} for a plot of the fit.
 One thing I discovered was that I seem to have the real and imaginary
@@ -110,11 +105,11 @@ parts swapped in either experiment or theory.  Or at least, I'm unable
 to reproduce experiment without swapping the two.  This should be
 looked into.
 
-Figure~\ref{fig:optimal-resistivity} shows the optimal resistivity
-curve.  The fit works by adjusting the $\Delta x$ values (actually,
-$\sqrt{\Delta x}$) and thus $x(\rho)$, rather than $\rho(x)$.  This
-turns the function from a nonlinear integration into a linear
-summation of the varying quantities, which seems simpler.
+Figure~\ref{fig:optimal-resistivity-and-concentration} shows the
+optimal resistivity curve.  The fit works by adjusting the $\Delta x$
+values (actually, $\sqrt{\Delta x}$) and thus $x(\rho)$, rather than
+$\rho(x)$.  This turns the function from a nonlinear integration into
+a linear summation of the varying quantities, which seems simpler.
 
 As can be seen in Fig.~\ref{fig:optimal-potential}, we end up with an
 almost linear potential energy, which seems rather funky and
