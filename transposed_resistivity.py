@@ -13,7 +13,9 @@ import compute
 
 e_w = 80 #Permiativity in water
 e_0 = 8.85e-12 #F/m Vacuum Permiativity
-n_0 = 0.01 #molarity of ions (10 mM phoshpate buffer from Crosser et al.)
+n_0 = 0.137 #molarity of ions (10 mM phoshpate buffer from Crosser et
+            #al., assuming the PBS described in wikipedia, and
+            #ignoring everything but the NaCl in that solution.)
 
 nm = 1e-9
 resistivity = 10.0**np.arange(200, 1.0, -0.5)
