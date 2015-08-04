@@ -35,7 +35,7 @@ def simple_pe(x):
     transposed_resistivity.py program, and needs to be replaced.
 
     """
-    return 12*eV*(x-nm)/nm
+    return 0.5*eV*np.exp(-x/(5*nm))
 
 Na = Species('Na',
              q=qe,
