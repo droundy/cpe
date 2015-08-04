@@ -1,4 +1,4 @@
-\documentclass[twocolumn]{article}
+\documentclass[twocolumn]{revtex4-1}
 
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -7,10 +7,13 @@
 
 \newcommand\fixme[1]{{\bf\color{red}[FIX ME! #1 !EM XIF]}}
 
-\title{Electrolytic Constant Phase Elements}
-\author{David Roundy}
-
 \begin{document}
+
+\title{Electrolytic Constant Phase Elements}
+\author{MacKenzie Lenz}
+\author{David Roundy}
+\affiliation{Department of Physics, Oregon State University, Corvallis, OR 97331}
+
 
 \maketitle
 
@@ -94,7 +97,9 @@ Gauss' Law!
   \includegraphics[width=\columnwidth]{optimal-potential}
   \caption{The potential energy curve extracted from the
     concentration, which is iteslf extracted from the resistivity that
-    we fit to the impedance.}\label{fig:optimal-potential}
+    we fit to the impedance.  The horizontal dashed line is the
+    solvation free energy of the sodium cation as cited in
+    Ref.~\cite{horinek2009rational}.}\label{fig:optimal-potential}
 \end{figure}
 
 I have written some code\footnote{see \texttt{transposed\_resistivity.py}} that
@@ -166,5 +171,41 @@ which accounts for repulsive interactions between ions of the same
 charge.  Sadly, Kohlrausch's law fails at very high concentrations,
 which is a problem because the concentration tends to get very high
 near the charged surface.
+
+\section{Hydration properties of ions}
+Here I will stick a little lit review of properties of ions in water.
+
+Mancinelli \emph{et al.} measured the radial distribution of water (O
+and H both) around Na$^+$, K$^+$, and Cl$^-$ ions at different
+concentrations~\cite{mancinelli2007hydration}.  They find that the
+first hydration shell is 2 or 3 \AA\ from the cation or anion
+respectively.  This paper should be our go-to paper for the hydration
+of these ions.
+
+Tielrooij \emph{et al.} used THz spectroscopy to examine the dynamics
+of water around ions~\cite{tielrooij2010cooperativity}.  They conclude
+that the ions can significantly affect water molecules well beyond the
+first solvation layer.  Moreover, they found that these effects were
+highly dependent on nature of the counterion, and were nonadditive.
+
+M\"ahler \emph{et al.} studied experimentally the hydration properties
+of the alkali metal ions~\cite{mahler2011study}.  They don't seem to
+have much that Ref.~\citenum{mancinelli2007hydration} does not, but
+better to have two experiments than one!
+
+Horinek \emph{et al.} wrote a theoretical paper designing empirical
+potentials for ions based on thermodynamic data, specifically the free
+energy and entropy of solvation~\cite{horinek2009rational}.  They
+discuss the experimental difficulty in measuring single-ion solvation
+data, and choose to set chloride as a reference.  In
+Fig.~\ref{fig:optimal-potential}, I plot a red line based on their
+estimated solvation free energy for the sodium cation.  If we include
+or discuss this in our paper, we should reread this paper carefully,
+and see if we can find some appropriate experimental data to compare
+with and cite.
+
+
+\bibstyle{plain}
+\bibliography{cpe}
 
 \end{document}

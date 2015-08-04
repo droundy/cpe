@@ -1,4 +1,4 @@
-| pdflatex cpe.tex && pdflatex cpe.tex
+| pdflatex cpe.tex && bibtex cpe && pdflatex cpe.tex && pdflatex cpe.tex
 
 | python poisson.py
 c .pyc
@@ -8,3 +8,4 @@ c .pyc
 
 | python transposed_resistivity.py
 c .pyc
+c iterate.dat

@@ -6,3 +6,6 @@
 *.pyc
 *.csv
 *.dat
+*.bbl
+*.blg
+*Notes.bib

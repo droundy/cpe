@@ -17,14 +17,17 @@ n_0 = 0.01 #molarity of ions (10 mM phoshpate buffer from Crosser et
            #al., with no sodium chloride or potasium.)
 
 nm = 1e-9
+micron = 1e-6
+NA = 6.0221413e+23 # Avogadro's number
+Molar = NA/1e3 # moles/liter in SI units of 1/m**3
+
+
 resistivity = 10.0**np.arange(200, 1.0, -0.5)
 rootdxs = np.zeros_like(resistivity)
 
 experiment = np.loadtxt('RawDataGraphene.txt')
 omega = experiment[:,0]/2/np.pi
 Vsd = 25e-3 # experimental applied voltage = 25 mV
-
-micron = 1e-6
 
 experimental_impedance_real = Vsd/experiment[:,6]*15800 # scale by area
 experimental_impedance_imag = Vsd/experiment[:,5]*15800 # scale by area
@@ -152,6 +155,9 @@ eV = 1.6e-19 # J
 V = compute.potential_from_concentration(kT, n_0, molar_concentration)
 plt.plot(x/nm, V/eV, '-')
 
+Na_solvation_free_energy = 414*1e3/NA # see Horinek et al.
+plt.axhline(Na_solvation_free_energy/eV, color='r', ls='--')
+
 plt.ylim(0, 12)
 plt.xlim(0, 10)
 plt.xlabel(r'$x$ (nm)')
@@ -164,6 +170,7 @@ plt.xlabel(r'$x$ (nm)')
 plt.ylabel(r'$V$ (eV)')
 plt.ylim(0,12)
 plt.xlim(xmin=0.01)
+plt.axhline(Na_solvation_free_energy/eV, color='r', ls='--')
 
 plt.savefig('optimal-potential.pdf')
 

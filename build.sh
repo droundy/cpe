@@ -8,5 +8,5 @@ set -ev
 
 (python poisson.py)
 
-(pdflatex cpe.tex && pdflatex cpe.tex)
+(pdflatex cpe.tex && bibtex cpe && pdflatex cpe.tex && pdflatex cpe.tex)
 
