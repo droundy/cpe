@@ -155,6 +155,13 @@ eV = 1.6e-19 # J
 V = compute.potential_from_concentration(kT, n_0, molar_concentration)
 plt.plot(x/nm, V/eV, '-')
 
+q = -1.6e-19 #C electron charge
+e_g = 4 #Permiativity in glass
+def image_charge_potential(x): #Joules
+    return q**2/(16*np.pi*e_w*e_0)*(e_w-e_g)/(e_w+e_g)*1/x
+
+# plt.plot(x/nm, image_charge_potential(x)/eV, 'r-')
+
 Na_solvation_free_energy = 414*1e3/NA # see Horinek et al.
 plt.axhline(Na_solvation_free_energy/eV, color='r', ls='--')
 
@@ -166,6 +173,9 @@ plt.ylabel(r'$V$ (eV)')
 
 ax2 = plt.axes([.35, .25, .5, .6])
 ax2.semilogx(x/nm, V/eV, '-')
+
+# plt.semilogx(x/nm, image_charge_potential(x)/eV, 'r-')
+
 plt.xlabel(r'$x$ (nm)')
 plt.ylabel(r'$V$ (eV)')
 plt.ylim(0,12)
