@@ -12,8 +12,8 @@ MacKenzie
 David
 =====
 
-1. Either experiment with tweaking V to get a better Z(omega), or go
-   for the full inverse computation, computing V given Z(omega).
+1. [DONE] Either experiment with tweaking V to get a better Z(omega),
+   or go for the full inverse computation, computing V given Z(omega).
 
 2. ???
 
