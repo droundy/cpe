@@ -190,7 +190,7 @@ def image_charge_potential(x): #Joules
     return q**2/(16*np.pi*e_w*e_0)*(e_w-e_g)/(e_w+e_g)*1/x
 x = np.arange(0.01*nm, 20*nm, 0.01*nm)
 plt.plot(x/nm, image_charge_potential(x)/eV, 'k:')
-plt.ylim(0, 0.)
+plt.ylim(ymin=0)
 
 plt.legend(loc='best')
 plt.savefig('optimal-potential.pdf')
