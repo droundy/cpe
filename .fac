@@ -6,6 +6,9 @@ c .pyc
 | python impedance.py
 c .pyc
 
+| python capacitance.py
+c .pyc
+
 | python transposed_resistivity.py
 c .pyc
 c iterate.dat
