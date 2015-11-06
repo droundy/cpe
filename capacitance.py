@@ -54,7 +54,7 @@ def find_V_from_Phi(x, Phi):
     return Phi[0]
 
 def find_Q_from_rho(x, rho):
-    return rho.sum()*(x[1]-x[0])
+    return -rho.sum()*(x[1]-x[0])
 
 # plt.figure()
 # plt.plot(x/nm,V_graph/eV)
@@ -64,25 +64,44 @@ def find_Q_from_rho(x, rho):
 # plt.figure()
 # plt.plot(x,find_Phi_rho_from_Phi0(x, V_graph, 0.001)[0])
 
-phi0max = 2e-4
-dphi0max = phi0max/5
-phi0s = np.arange(-phi0max, phi0max + dphi0max/2, dphi0max)
+Vmax = 2.0
+dVgoal = 0.01
+
+phi0max = 1e-4
+dphi0 = 1e-5 # phi0max/20
+phi0s = np.arange(0, phi0max + dphi0/2, dphi0)
 Vs = np.zeros_like(phi0s)
 Qs = np.zeros_like(phi0s)
 for i in range(len(phi0s)):
     Phi,rho = find_Phi_rho_from_Phi0(x, V_graph, phi0s[i])
     Qs[i] = find_Q_from_rho(x, rho)
     Vs[i] = find_V_from_Phi(x, Phi)
-    print Vs[i], Qs[i]
+    # print Vs[i], Qs[i]
     # plt.figure()
     # plt.plot(x/nm,Phi)
     # plt.xlabel('$x$ (nm)')
     # plt.ylabel('$\Phi$ (V)')
+while Vs[-1] < Vmax:
+    phi0 = phi0s[-1] + dphi0
+    Phi,rho = find_Phi_rho_from_Phi0(x, V_graph, phi0)
+    Q = find_Q_from_rho(x, rho)
+    V = find_V_from_Phi(x, Phi)
+    print("V = %g\tQ = %g" % (V, Q))
+    if V - Vs[-1] > dVgoal:
+        dphi0 /= 2
+        print("Decreasing dphi0 to %g due to dV = %g" % (dphi0, V-Vs[-1]))
+    else:
+        Vs = np.append(Vs, [V])
+        Qs = np.append(Qs, [Q])
+        phi0s = np.append(phi0s, [phi0])
 
 plt.figure()
-plt.plot(Vs, Qs)
-plt.xlabel('$V$')
-plt.ylabel('$Q$')
+plt.plot(Vs, Qs, 'k-')
+plt.plot(-Vs, -Qs, 'k-')
+plt.xlabel('$V$ (Volts)')
+plt.ylabel('$Q$ (Coulombs/meter$^2$)')
+
+plt.xlim(-Vmax, Vmax)
 
 plt.savefig('Q-vs-V.pdf')
 
