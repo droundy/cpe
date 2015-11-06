@@ -29,7 +29,10 @@ nop = 2 #number of particles
 q = [eV,-eV] #charges for particles
 
 
-V_graph = (-0.1*x/nm+0.6)*eV
+V_graph = 0.4*eV*(1 - x/(6*nm))
+V_graph[V_graph < 0] = 0
+
+V_graph += 0.2*eV*(1 - x/(600*nm))
 V_graph[V_graph < 0] = 0
 
 n = np.zeros_like(x)
@@ -64,7 +67,7 @@ def find_Q_from_rho(x, rho):
 # plt.figure()
 # plt.plot(x,find_Phi_rho_from_Phi0(x, V_graph, 0.001)[0])
 
-Vmax = 2.0
+Vmax = 0.6
 dVgoal = 0.01
 
 phi0max = 1e-4
@@ -104,6 +107,15 @@ plt.ylabel('$Q$ (Coulombs/meter$^2$)')
 plt.xlim(-Vmax, Vmax)
 
 plt.savefig('Q-vs-V.pdf')
+
+plt.figure()
+plt.plot(x/nm, V_graph/eV, 'k-')
+plt.xlabel('$x$ (nm)')
+plt.ylabel('$V_{wall}$ (eV)')
+
+plt.xlim(0, 20)
+
+plt.savefig('potential-energy-approx-vs-distance.pdf')
 
 plt.show()
 
