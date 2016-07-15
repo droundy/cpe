@@ -105,6 +105,7 @@ plt.xlabel('$V$ (Volts)')
 plt.ylabel('$Q$ (Coulombs/meter$^2$)')
 
 plt.xlim(-Vmax, Vmax)
+plt.ylim(-0.001, 0.001)
 
 plt.savefig('Q-vs-V.pdf')
 

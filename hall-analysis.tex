@@ -1,0 +1,182 @@
+\documentclass[twocolumn]{revtex4-1}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{color}
+
+\newcommand\fixme[1]{{\bf\color{red}[FIX ME! #1 !EM XIF]}}
+
+\begin{document}
+
+\title{Analysis of Morgan's Data}
+\author{David Roundy}
+\affiliation{Department of Physics, Oregon State University, Corvallis, OR 97331}
+
+\maketitle
+
+\section{Simple analysis}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{hall-measurements/vh-vs-vg}
+  \includegraphics[width=\columnwidth]{hall-measurements/vxx-vs-vg}
+  \caption{Raw Hall data.}
+  \label{fig:raw-data}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{hall-measurements/ns-vs-vg}
+  \includegraphics[width=\columnwidth]{hall-measurements/mu-vs-vg}
+  \caption{Simple analysis of Hall data.}
+  \label{fig:simple-analysis}
+\end{figure}
+
+We begin with the raw data.  Fig.~\ref{fig:raw-data} shows the raw
+data that was collected with a B field of 0.5~Tesla, and with a
+current of $1\times 10^{-6}$ amps.
+
+The traditional analysis uses the above data to extract two
+quantities: the signed carrier density and the mobility.  The carrier
+density comes from
+\begin{align}
+  n_s &= \frac{BI}{V_He}\label{eq:ns}
+\end{align}
+while the mobility is obtained from
+\begin{align}
+  \mu &= \frac{V_H}{V_{xx}B}\label{eq:mu}
+\end{align}
+The output of this analysis is shown in
+Fig.~\ref{fig:simple-analysis}.  The approach misbehaves where the
+Hall voltage approaches zero (at gate voltages less than about 0.2 V),
+since the resistivity ought to diverge (at zero carrier density), but
+it doesn't because graphene on a substrate can hold both positive and
+negative carriers due to electrostatic inhomogeneity.
+
+There are two main challenges with this analysis.  One is the
+aforementioned issue that the carriers do not all have the same sign.
+The second is that the gate voltage is not trivially related to the
+electrostatic voltage across the double layer capacitor.
+
+\section{Including both carriers}
+If we incorporate both carriers into the analysis, we introduce an
+additional unknown density, which means we need an additional
+assumption in order to solve for the two carrier densities.  One such
+assumption would be that the mobility is independent of gate voltage,
+and that the electron and hole mobilities are identical.  These seem
+like reasonable guesses, given what we know about the band structure
+of graphene.
+
+We begin with an assumption of equal mobility for both carriers so
+that in the absence of a magnetic field we will have:
+\begin{align}
+  \vec{v}_+ &= \mu \vec{E} \\
+  \vec{v}_- &= -\mu \vec{E} \\
+  \vec{J} &= e n_+ \vec{v}_+ - e n_- \vec{v}_- \\
+  &= \mu\left(n_+ + n_-\right) e \vec{E}
+\end{align}
+We continue with the ordinary Hall measurement idea that there is a
+vertical magnetic field and zero transverse current.  Further, we
+assume that a steady state is reached such that the mean Lorentz force
+on each carrier type is zero.
+\begin{align}
+  \vec{F}_\pm &= \pm e(\vec{E} + \vec{v}_\pm\times\vec{B}) \\
+  \vec{v}_\pm &= \pm \mu (\vec{E} + \vec{v}_\pm\times\vec{B}) \\
+  v_{\pm\parallel} &= \pm \mu (E_\parallel + v_{\pm\perp}B) \\
+  v_{\pm\perp} &= \pm \mu (E_\perp - v_{\pm\parallel}B) \\
+  &= \pm \mu (E_\perp \mp \mu (E_\parallel + v_{\pm\perp}B)B) \\
+  &= \pm \mu (E_\perp \mp \mu E_\parallel B \mp \mu v_{\pm\perp}B^2) \\
+  &\approx \pm \mu (E_\perp \mp \mu E_\parallel B) \\
+  &= \pm \mu E_\perp - \mu^2 E_\parallel B
+\end{align}
+Now that we know how fast the charges are moving, given the electric
+and magnetic fields they feel, we can apply the constraint that there
+is no transverse current.
+\begin{align}
+  J_\perp
+  &= en_+v_{+\perp} - en_-v_{-\perp} \\
+  &= e(n_+v_{+\perp} - n_-v_{-\perp}) \\
+  &= e\mu\left(n_+(E_\perp - \mu E_\parallel B)
+  - n_-(-E_\perp - \mu E_\parallel B) \right) \\
+             &= e\mu\left( (n_+ + n_-) E_\perp
+             - (n_+ - n_-)\mu E_\parallel B \right) \\
+             &= 0
+\end{align}
+Thus we obtain a relationship between the parallel and transverse
+fields, as well as the densities.
+\begin{align}
+  (n_+ + n_-) E_\perp &= (n_+ - n_-)\mu E_\parallel B
+\end{align}
+At this point it is probably worth thinking about how we can connect
+with the measured quantities.  Let us begin by imagining that our
+system has length $\ell$ and width $w$, and is of rectangular shape.
+First, we will consider finding potentials from electric fields, so we
+can connect those will experiment also.
+\begin{align}
+  V_\perp &= w E_\perp \\
+  V_\parallel &= \ell E_\parallel
+\end{align}
+Now let us ask about the current, which is one of our other
+experimental variables.
+\begin{align}
+  I &= J_\parallel w \\
+  &= (en_+v_{+\parallel} - e n_-v_{-\parallel})w \\
+  &\approx \mu e (n_+ + n_-) E_\parallel w \\
+  I &= \mu e (n_+ + n_-) V_\parallel \frac{w}{\ell}
+\end{align}
+Now revisiting the transverse direction, we find:
+\begin{align}
+  (n_+ + n_-) \frac{V_\perp}{w} &= \mu (n_+ - n_-)\frac{V_\parallel}{\ell} B \\
+  (n_+ + n_-) V_\perp &= \frac{n_+ - n_-}{n_+ + n_-}\frac{IB}{e} \\
+  \frac{(n_+ + n_-)^2}{n_+ - n_-} &= \frac{IB}{V_\perp e}
+\end{align}
+This is the clarification of Eq.~\ref{eq:ns} which gave $n_s$ in the
+simple interpretation of the Hall measurement.  We can see how it
+reduces to that formula if we set one of the two densities to zero.
+
+Equation~\ref{eq:mu} was obtained by finding the ratio between the two
+voltages.  In our more complicated case, we find
+\begin{align}
+  \mu &= \frac{n_+ - n_-}{n_+ + n_-}\frac{V_\perp}{V_\parallel B}\frac{\ell}{w}
+\end{align}
+In this case, we can see that the formula reduces to the simpler one
+if we set one of the densities to zero \emph{and} set the length and
+width equal.
+
+We have now obtained two equations involving our four experimental
+parameters (plus $\ell$ and $w$, which we will assume may be measured,
+or perhaps taken to be equal) and now three unknowns:  $\mu$, $n_+$,
+and $n_-$.  To simplify the formulas, we will express them in terms of
+two combinations of densities:
+\begin{figure}
+  \includegraphics[width=\columnwidth]{hall-measurements/xi-vs-vg}
+  \includegraphics[width=\columnwidth]{hall-measurements/nt-vs-vg}
+  \caption{Fancy analysis.}
+  \label{fig:nice}
+\end{figure}
+\begin{align}
+  n_t &\equiv n_+ + n_- \\
+  \xi &\equiv \frac{n_+ - n_-}{n_+ + n_-}
+\end{align}
+Thus our two essential equations become:
+\begin{align}
+  n_t &= \xi\frac{IB}{V_\perp e} \\
+  \xi  &= \frac{V_\perp}{\sigma V_\parallel B} \\
+  \sigma &\equiv \mu \frac{w}{l}
+\end{align}
+Now, we should be able to assume that for graphene $\sigma$ is
+relatively independent of gate voltage, due to the symmetry between
+electrons and holes near the Dirac point.  Moreover, we should also be
+able to assume that far from the Dirac point the minority fraction
+should be zero, meaning that $\xi \rightarrow 1$.  Thus at large gate
+voltages we should be able to solve for $\sigma$ experimentally.  Then
+given $\sigma$ we should be able to solve for both $n_t$ and $\xi$.
+
+Results are shown in Fig.~\ref{fig:nice}, which are disappointing.  We
+expect $\xi$ to monotonically approach $\pm 1$, but find that it peaks
+in both cases.  It also increases above a magnitude of 1 which is bad,
+but arises only because I set the value of $\sigma$ based on the
+largest gate voltages (approximately).
+
+On the plus side, the total density is now more nicely behaved at
+small gate voltages, so that is good.
+
+\end{document}

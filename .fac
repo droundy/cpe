@@ -1,5 +1,7 @@
 | pdflatex cpe.tex && bibtex cpe && pdflatex cpe.tex && pdflatex cpe.tex
 
+| pdflatex hall-analysis.tex && bibtex hall-analysis && pdflatex hall-analysis.tex && pdflatex hall-analysis.tex
+
 | python poisson.py
 c .pyc
 
@@ -7,6 +9,9 @@ c .pyc
 c .pyc
 
 | python capacitance.py
+c .pyc
+
+| python2 hall-analysis.py
 c .pyc
 
 | python transposed_resistivity.py
