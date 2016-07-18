@@ -14,6 +14,12 @@ I = 5e-6 # Amps
 hbar = 1.0545718e-34 # J s
 v_F = 1e6 # m/s
 
+colors = {
+    1: 'b',
+    10: 'g',
+    100: 'r',
+}
+
 for c in concentrations:
     data = np.loadtxt('hall-measurements/%d_mM.csv' % c)
     Vg = data[:,0]
@@ -82,9 +88,13 @@ for c in concentrations:
     plt.savefig('hall-measurements/xi-vs-vg.pdf')
 
     nt = xi*I*B/V_Hall/e
+    n_plus = (xi + 1)*nt/2
+    n_minus = nt - n_plus
 
     plt.figure('total carrier density versus double-layer voltage')
-    plt.plot(Vg, nt, '-', label="%d mM" % c)
+    plt.plot(Vg, nt, colors[c]+'-', label="%d mM" % c)
+    plt.plot(Vg, n_plus, colors[c]+'--')
+    plt.plot(Vg, n_minus, colors[c]+':')
     plt.xlabel('$V_{dl}$')
     plt.ylabel(r'$n_t$')
     plt.legend(loc='best')
