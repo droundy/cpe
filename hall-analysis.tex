@@ -148,6 +148,7 @@ and $n_-$.  To simplify the formulas, we will express them in terms of
 two combinations of densities:
 \begin{figure}
   \includegraphics[width=\columnwidth]{hall-measurements/xi-vs-vg}
+  \includegraphics[width=\columnwidth]{hall-measurements/new-mu-vs-vg}
   \includegraphics[width=\columnwidth]{hall-measurements/nt-vs-vg}
   \caption{Fancy analysis.  The total carrier density is shown with
     solid lines.  Dashed lines show the positive carrier density,
@@ -161,16 +162,15 @@ two combinations of densities:
 Thus our two essential equations become:
 \begin{align}
   n_t &= \xi\frac{IB}{V_\perp e} \\
-  \xi  &= \frac{V_\perp}{\sigma V_\parallel B} \\
-  \sigma &\equiv \mu \frac{w}{l}
+  \xi  &= \frac{V_\perp}{\mu V_\parallel B}\frac{l}{w}
 \end{align}
-Now, we should be able to assume that for graphene $\sigma$ is
+Now, we should be able to assume that for graphene $\mu$ is
 relatively independent of gate voltage, due to the symmetry between
 electrons and holes near the Dirac point.  Moreover, we should also be
 able to assume that far from the Dirac point the minority fraction
 should be zero, meaning that $\xi \rightarrow 1$.  Thus at large gate
-voltages we should be able to solve for $\sigma$ experimentally.  Then
-given $\sigma$ we should be able to solve for both $n_t$ and $\xi$.
+voltages we should be able to solve for $\mu$ experimentally.  Then
+given $\mu$ we should be able to solve for both $n_t$ and $\xi$.
 
 Results are shown in Fig.~\ref{fig:nice}, which are disappointing.  We
 expect $\xi$ to monotonically approach $\pm 1$, but find that it peaks

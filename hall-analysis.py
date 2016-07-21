@@ -76,27 +76,44 @@ for c in concentrations:
     plt.legend(loc='best')
     plt.savefig('hall-measurements/ns-vs-vdl.pdf')
 
-    sigma = 0.2 # read by eye off of the simple analysis plot
+    # mu = 0.6 # read by eye off of the simple analysis plot
 
-    xi = V_Hall/(sigma*V_xx*B)
+    # xi = V_Hall/(mu*V_xx*B)
+    for i in range(len(V_Hall)-1):
+        if V_Hall[i+1]*V_Hall[i] < 0:
+            VHi = abs(V_Hall[i])
+            VHip = abs(V_Hall[i+1])
+            V_dirac = (Vg[i]*VHip + Vg[i+1]*VHi)/(VHi + VHip)
+            print i, V_Hall[i], V_Hall[i+1], Vg[i], Vg[i+1], V_dirac
+    xi = np.tanh((Vg - V_dirac)/.13) # try a tanh
 
-    plt.figure('carrier homogeneity versus double-layer voltage')
-    plt.plot(Vg, xi, '-', label="%d mM" % c)
-    plt.xlabel('$V_{dl}$')
+    plt.figure('carrier homogeneity versus gate voltage')
+    plt.plot(Vg-V_dirac, xi, '-', label="%d mM" % c)
+    plt.xlabel('$V_{g} - V_D$')
     plt.ylabel(r'$\xi$')
     plt.legend(loc='best')
     plt.savefig('hall-measurements/xi-vs-vg.pdf')
+
+    mu = V_Hall/(xi*V_xx*B)
+
+    plt.figure('new mobility versus gate voltage')
+    plt.plot(Vg-V_dirac, mu, '-', label="%d mM" % c)
+    plt.xlabel('$V_{g}-V_D$')
+    plt.ylabel(r'$\mu$')
+    plt.legend(loc='best')
+    plt.savefig('hall-measurements/new-mu-vs-vg.pdf')
 
     nt = xi*I*B/V_Hall/e
     n_plus = (xi + 1)*nt/2
     n_minus = nt - n_plus
 
     plt.figure('total carrier density versus double-layer voltage')
-    plt.plot(Vg, nt, colors[c]+'-', label="%d mM" % c)
-    plt.plot(Vg, n_plus, colors[c]+'--')
-    plt.plot(Vg, n_minus, colors[c]+':')
-    plt.xlabel('$V_{dl}$')
+    plt.plot(Vg-V_dirac, nt, colors[c]+'-', label="%d mM" % c)
+    plt.plot(Vg-V_dirac, n_plus, colors[c]+'--')
+    plt.plot(Vg-V_dirac, n_minus, colors[c]+':')
+    plt.xlabel('$V_{g}-V_D$')
     plt.ylabel(r'$n_t$')
+    plt.ylim(0, 0.2e17)
     plt.legend(loc='best')
     plt.savefig('hall-measurements/nt-vs-vg.pdf')
 
